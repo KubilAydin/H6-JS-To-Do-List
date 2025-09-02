@@ -28,5 +28,5 @@ Bu projede kullanılan frameworkler ve programlama dilleri aşağıdaki gibidir.
 Projeyi klonlayın
 
 ```cmd
-  git clone https://link-to-project
+  git clone https://github.com/KubilAydin/H6-JS-To-Do-List.git
 ```
