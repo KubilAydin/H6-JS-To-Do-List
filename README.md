@@ -8,7 +8,7 @@ Bu projede kullanılan frameworkler ve programlama dilleri aşağıdaki gibidir.
 
 ## 🔭 Github ile paylaşıldı.
 
-[Github Page için tıklayınız ]()
+[Github Page için tıklayınız ](https://kubilaydin.github.io/H6-JS-To-Do-List/)
 
 ## 🚀 Sayfa Yapıları
 ### 
