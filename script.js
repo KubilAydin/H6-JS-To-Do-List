@@ -1,39 +1,23 @@
 //Yazdırılan elementleri ekleme ve silme fonksu.
 function newElement () {
-    // li elementi yaratma
-    var li = document.createElement("li");
-    // id ile değer alma
-    var inputValue = document.getElementById("task").value;
-    // alınan değeri textnode ile yazdırma
-    var t = document.createTextNode(inputValue);
-    //textnode li içine ekleniyor.
-    li.appendChild(t);
-    // Boşluk ve uzunluğu 0'alan karakterler error atar.
-    if(inputValue === " " || inputValue.trim().length == 0) {
+    let input = document.getElementById("task");
+    let value = input.value.trim();
+
+    // Boş karakter kontrolü
+    if (!value) {
         $(".error").toast("show");
-    } else { // Değilse list elemanı olarak eklenir ve toast ile gösterilir.
-        $(".success").toast("show");
-        document.getElementById("list").appendChild(li);
+        return;
     }
-    document.getElementById("task").value = "";
 
-    var span = document.createElement("span");
-    //Bu bir unicode x işareti için tanımlandı.
-    var text = document.createTextNode("\u00D7");
-    // close elemanı getirtme
-    var close = document.getElementsByClassName("close");
-    span.className = "close";
-    span.appendChild(text);
-    li.appendChild(span);
+    // Görevi DOM’a ekle
+    $(".success").toast("show");
+    addTaskToDoom(value);
 
-    for (i=0; i< close.length; i++) {
-        close[i].onclick = function() {
-            var div = this.parentElement;
-            div.style.display = "none";
-        };
-    }
-    // ul elemanını seç.
-    
+    // Kaydet
+    saveTasks();
+
+    // Input sıfırla
+    input.value = "";    
 }
 
 var myList = document.getElementsByTagName("LI");
@@ -91,42 +75,29 @@ function loadTasks() {
 //Görevleri Doom'a ekleme
 function addTaskToDoom(text, checked = false, customId = null){
     let li = document.createElement("li");
-    li.textContent = text;
 
-    //Id ataması
     if (customId) {
         li.id = customId;
-        let num = parseInt(customId.split("-"[1]));
-        if(num >= taskCounter) taskCounter = num + 1;// Sayaç Güncelle
+        let num = parseInt(customId.split("-")[1]);
+        if (num >= taskCounter) taskCounter = num + 1;
     } else {
         li.id = "task-" + taskCounter++;
     }
 
+    li.appendChild(document.createTextNode(text));
     if (checked) li.classList.add("checked");
 
     let span = document.createElement("span");
-    span.textContent = "x";
+    span.textContent = "×";
     span.className = "close";
-    span.onclick = () => {li.remove(); saveTasks();};
+    span.onclick = (e) => {
+        e.stopPropagation(); // checked olayı tetiklenmesin
+        li.remove();
+        saveTasks();
+    };
 
     li.appendChild(span);
-    li.onclick = (e) => {
-        if (e.target.tagName === "LI") {
-            li.classList.toggle("checked");
-            saveTasks();
-        }
-    };
     document.getElementById("list").appendChild(li);
-}
-
-//Yeni görev ekle
-function newElement() {
-    let input = document.getElementById("task");
-    let value = input.value.trim();
-    if(!value) return;
-    addTaskToDoom(value);
-    saveTasks();
-    input.value = "";
 }
 
 //Sayfa her açıldığında görev yükleme 
