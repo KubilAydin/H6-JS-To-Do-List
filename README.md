@@ -1,4 +1,4 @@
-# 📝 Bitirme Projesi - Sport Center
+# 📝 TO DO List Projesi
 
 Bu projede kullanılan frameworkler ve programlama dilleri aşağıdaki gibidir.
 
